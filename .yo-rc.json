@@ -1,0 +1,45 @@
+{
+  "generator-jhipster": {
+    "promptValues": {
+      "packageName": "com.illud.transport"
+    },
+    "jhipsterVersion": "5.8.2",
+    "applicationType": "microservice",
+    "baseName": "transport",
+    "packageName": "com.illud.transport",
+    "packageFolder": "com/illud/transport",
+    "serverPort": "8081",
+    "authenticationType": "oauth2",
+    "cacheProvider": "no",
+    "websocket": false,
+    "databaseType": "sql",
+    "devDatabaseType": "mysql",
+    "prodDatabaseType": "mysql",
+    "searchEngine": "elasticsearch",
+    "messageBroker": false,
+    "serviceDiscoveryType": "eureka",
+    "buildTool": "maven",
+    "enableSwaggerCodegen": false,
+    "jwtSecretKey": "NjkwZTdkNzVmYjBiY2FiMzExYzFlNjI2NmUxZTgyODFjYjgzMDI0MjZkZGM5ZjYxYjBjYmMxMjBlZmZmNzQ4ZTI3YTc5MGUzMmU3OTQ1NDAwMTI2NWNmMTNhYThkMGZlMzc4NGI1ZDIyOGFiYmRlZjI1ZTQxNTFhYzAxMzI2MGM=",
+    "testFrameworks": [],
+    "jhiPrefix": "jhi",
+    "entitySuffix": "",
+    "dtoSuffix": "DTO",
+    "otherModules": [],
+    "enableTranslation": false,
+    "clientPackageManager": "npm",
+    "skipClient": true,
+    "skipUserManagement": true
+  },
+  "generator-jhipster-swagger-cli": {
+    "promptValues": {
+      "inputSpec": "/home/karthi/apache-tomcat-9.0.21/webapps/activiti-rest/docs/activiti.json",
+      "cliName": "activitiRestApi"
+    },
+    "apis": {
+      "activitiRestApi": {
+        "spec": "/home/karthi/apache-tomcat-9.0.21/webapps/activiti-rest/docs/activiti.json"
+      }
+    }
+  }
+}

@@ -1,0 +1,35 @@
+{
+    "name": "Reply",
+    "fields": [
+        {
+            "fieldName": "iDPcode",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "reply",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "repliedDate",
+            "fieldType": "Instant"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipName": "review",
+            "otherEntityName": "review",
+            "relationshipType": "many-to-one",
+            "otherEntityField": "id"
+        }
+    ],
+    "changelogDate": "20190806061836",
+    "entityTableName": "reply",
+    "dto": "mapstruct",
+    "pagination": "pagination",
+    "service": "serviceImpl",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "clientRootFolder": "transport",
+    "applications": "*",
+    "microserviceName": "transport"
+}

@@ -1,0 +1,15 @@
+{
+    "name": "DriverDocuments",
+    "fields": [],
+    "relationships": [],
+    "changelogDate": "20190806061830",
+    "entityTableName": "driver_documents",
+    "dto": "mapstruct",
+    "pagination": "pagination",
+    "service": "serviceImpl",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "clientRootFolder": "transport",
+    "applications": "*",
+    "microserviceName": "transport"
+}

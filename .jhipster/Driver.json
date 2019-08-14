@@ -1,0 +1,72 @@
+{
+    "name": "Driver",
+    "fields": [
+        {
+            "fieldName": "iDPcode",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "firstName",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "lastName",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "mobileNumber",
+            "fieldType": "Long"
+        },
+        {
+            "fieldName": "drivingLicenseNumber",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "image",
+            "fieldType": "byte[]",
+            "fieldTypeBlobContent": "image"
+        },
+        {
+            "fieldName": "totalRating",
+            "fieldType": "Double"
+        },
+        {
+            "fieldName": "status",
+            "fieldType": "Boolean"
+        },
+        {
+            "fieldName": "location",
+            "fieldType": "String"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "one-to-many",
+            "otherEntityName": "review",
+            "otherEntityRelationshipName": "driver",
+            "relationshipName": "review"
+        },
+        {
+            "relationshipType": "one-to-many",
+            "otherEntityName": "userRating",
+            "otherEntityRelationshipName": "driver",
+            "relationshipName": "userRating"
+        },
+        {
+            "relationshipType": "one-to-many",
+            "otherEntityName": "vehicle",
+            "otherEntityRelationshipName": "driver",
+            "relationshipName": "vehicle"
+        }
+    ],
+    "changelogDate": "20190806061829",
+    "entityTableName": "driver",
+    "dto": "mapstruct",
+    "pagination": "pagination",
+    "service": "serviceImpl",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "clientRootFolder": "transport",
+    "applications": "*",
+    "microserviceName": "transport"
+}

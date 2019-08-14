@@ -1,0 +1,41 @@
+{
+    "name": "Review",
+    "fields": [
+        {
+            "fieldName": "iDPcode",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "review",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "reviewedDate",
+            "fieldType": "Instant"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipName": "driver",
+            "otherEntityName": "driver",
+            "relationshipType": "many-to-one",
+            "otherEntityField": "id"
+        },
+        {
+            "relationshipType": "one-to-many",
+            "otherEntityName": "reply",
+            "otherEntityRelationshipName": "review",
+            "relationshipName": "reply"
+        }
+    ],
+    "changelogDate": "20190806061835",
+    "entityTableName": "review",
+    "dto": "mapstruct",
+    "pagination": "pagination",
+    "service": "serviceImpl",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "clientRootFolder": "transport",
+    "applications": "*",
+    "microserviceName": "transport"
+}

@@ -1,0 +1,48 @@
+{
+    "name": "Ride",
+    "fields": [
+        {
+            "fieldName": "driverId",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "riderId",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "startTime",
+            "fieldType": "Instant"
+        },
+        {
+            "fieldName": "endTime",
+            "fieldType": "Instant"
+        },
+        {
+            "fieldName": "addressStartingPoint",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "addressDestination",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "fare",
+            "fieldType": "Double"
+        },
+        {
+            "fieldName": "totalDistance",
+            "fieldType": "Double"
+        }
+    ],
+    "relationships": [],
+    "changelogDate": "20190806061831",
+    "entityTableName": "ride",
+    "dto": "mapstruct",
+    "pagination": "pagination",
+    "service": "serviceImpl",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "clientRootFolder": "transport",
+    "applications": "*",
+    "microserviceName": "transport"
+}

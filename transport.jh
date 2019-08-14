@@ -1,0 +1,78 @@
+
+entity Driver
+{  
+	IDPcode String,
+	firstName String,
+    lastName String,
+    mobileNumber Long,
+    drivingLicenseNumber String,
+   	image ImageBlob,
+    totalRating Double,	
+    status Boolean,
+	location String
+   
+}
+entity DriverDocuments
+{
+
+}
+
+entity Ride{
+	driverId String,
+    riderId String,
+    startTime Instant,
+    endTime Instant,
+    addressStartingPoint String,
+    addressDestination String,
+    fare Double,
+    totalDistance Double
+
+}
+
+
+entity Vehicle{
+
+	number String,
+    make Integer,
+    model String
+    
+}
+
+entity Rider{
+	IDPcode String,
+	firstName String,
+    lastName String,
+	mobilenumber String,
+    email String
+    
+}
+
+entity UserRating{
+IDPcode String,
+    rating Double,
+    ratedOn Instant
+}
+
+entity Review{
+	IDPcode String
+	review String,
+    reviewedDate Instant
+}
+entity Reply{
+	IDPcode String
+	reply String,
+    repliedDate Instant
+}
+
+relationship OneToMany{
+
+    Review{reply} to Reply,
+    Driver{review} to Review,
+    Driver{userRating} to UserRating,
+    Driver{vehicle} to Vehicle
+}
+service all with serviceImpl
+dto all with mapstruct
+paginate all with pagination
+
+
