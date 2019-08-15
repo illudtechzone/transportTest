@@ -46,7 +46,8 @@ public class TransportCommandServiceimpl implements TransportCommandService {
    		List<RestVariable> variables=new ArrayList<RestVariable>();
    		
    		//processInstanceCreateRequest.setProcessDefinitionId("illuid-work:1:2504");
-   		processInstanceCreateRequest.setProcessDefinitionId("illuid-work:3:10814");
+   		//processInstanceCreateRequest.setProcessDefinitionId("illuid-work:3:10814");
+   		processInstanceCreateRequest.setProcessDefinitionId("illuid-work:4:11267");
    		
    		RestVariable riderRestVariable=new RestVariable();
    		riderRestVariable.setName("rider");
@@ -101,8 +102,8 @@ public class TransportCommandServiceimpl implements TransportCommandService {
    		formProperties.add(distanceFormProperty);
    		
    		RestFormProperty pickUpFormProperty = new RestFormProperty();
-   		pickUpFormProperty.setId("pickup");
-   		pickUpFormProperty.setName("pickup");
+   		pickUpFormProperty.setId("pickUp");
+   		pickUpFormProperty.setName("pickUp");
    		pickUpFormProperty.setType("String");
    		pickUpFormProperty.setReadable(true);
    		pickUpFormProperty.setValue(defaultInfoRequest.getPickUp());

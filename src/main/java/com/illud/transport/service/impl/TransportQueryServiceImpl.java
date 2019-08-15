@@ -35,6 +35,9 @@ public class TransportQueryServiceImpl implements TransportQueryService {
 	  
 	  @Autowired
 	  private HistoryApi historyApi;
+	  
+	  @Autowired
+	  private ProcessInstancesApi processInstancesApi;
 	
 	@Override
 	public ResponseEntity<DataResponse> getTasks(String name, String nameLike, String description, String priority,
@@ -52,63 +55,7 @@ public class TransportQueryServiceImpl implements TransportQueryService {
 		return tasksApi.getTasks(name, nameLike, description, priority, minimumPriority, maximumPriority, assignee, assigneeLike, owner, ownerLike, unassigned, delegationState, candidateUser, candidateGroup, candidateGroups, involvedUser, taskDefinitionKey, taskDefinitionKeyLike, processInstanceId, processInstanceBusinessKey, processInstanceBusinessKeyLike, processDefinitionId, processDefinitionKey, processDefinitionKeyLike, processDefinitionName, processDefinitionNameLike, executionId, createdOn, createdBefore, createdAfter, dueOn, dueBefore, dueAfter, withoutDueDate, excludeSubTasks, active, includeTaskLocalVariables, includeProcessVariables, tenantId, tenantIdLike, withoutTenantId, candidateOrAssigned, category);
 	}
 
-	/*
-	 * @Override public List<OpenBookings> getOpenAppointments(String name, String
-	 * nameLike, String description, String priority, String minimumPriority, String
-	 * maximumPriority, String assignee, String assigneeLike, String owner, String
-	 * ownerLike, String unassigned, String delegationState, String candidateUser,
-	 * String candidateGroup, String candidateGroups, String involvedUser, String
-	 * taskDefinitionKey, String taskDefinitionKeyLike, String processInstanceId,
-	 * String processInstanceBusinessKey, String processInstanceBusinessKeyLike,
-	 * 
-	 * @Valid String processDefinitionId, @Valid String processDefinitionKey,
-	 * 
-	 * @Valid String processDefinitionKeyLike, @Valid String processDefinitionName,
-	 * 
-	 * @Valid String processDefinitionNameLike, @Valid String executionId, @Valid
-	 * String createdOn,
-	 * 
-	 * @Valid String createdBefore, @Valid String createdAfter, @Valid String
-	 * dueOn, @Valid String dueBefore,
-	 * 
-	 * @Valid String dueAfter, @Valid Boolean withoutDueDate, @Valid Boolean
-	 * excludeSubTasks,
-	 * 
-	 * @Valid Boolean active, @Valid Boolean includeTaskLocalVariables, @Valid
-	 * Boolean includeProcessVariables,
-	 * 
-	 * @Valid String tenantId, @Valid String tenantIdLike, @Valid Boolean
-	 * withoutTenantId,
-	 * 
-	 * @Valid String candidateOrAssigned, @Valid String category) {
-	 * 
-	 * ResponseEntity<DataResponse> response = tasksApi.getTasks(name, nameLike,
-	 * description, priority, minimumPriority, maximumPriority, assignee,
-	 * assigneeLike, owner, ownerLike, unassigned, delegationState, candidateUser,
-	 * candidateGroup, candidateGroups, involvedUser, taskDefinitionKey,
-	 * taskDefinitionKeyLike, processInstanceId, processInstanceBusinessKey,
-	 * processInstanceBusinessKeyLike, processDefinitionId, processDefinitionKey,
-	 * processDefinitionKeyLike, processDefinitionName, processDefinitionNameLike,
-	 * executionId, createdOn, createdBefore, createdAfter, dueOn, dueBefore,
-	 * dueAfter, withoutDueDate, excludeSubTasks, active, includeTaskLocalVariables,
-	 * includeProcessVariables, tenantId, tenantIdLike, withoutTenantId,
-	 * candidateOrAssigned, category);
-	 * 
-	 * List<LinkedHashMap<String, String>> taskResponses =
-	 * (List<LinkedHashMap<String, String>>) response.getBody() .getData();
-	 * 
-	 * List<OpenBookings> openBookings = new ArrayList<OpenBookings>(); for
-	 * (LinkedHashMap<String, String> taskResponse : taskResponses) { OpenBookings
-	 * openBooking = new OpenBookings(); String taskProcessInstanceId =
-	 * taskResponse.get("processInstanceId");
-	 * log.info("Process Instance id of open appointment is "+taskProcessInstanceId)
-	 * ;
-	 * 
-	 * }
-	 * 
-	 * return null; }
-	 */
-
+	
 	@Override
 	public DefaultInfoRequest getBookingDetails(String processInstanceId) {
 		
@@ -124,8 +71,8 @@ public class TransportQueryServiceImpl implements TransportQueryService {
 		List<LinkedHashMap<String, String>> requestFormProperties = (List<LinkedHashMap<String, String>>) requestDetails
 				.getBody().getData();
 		
-		log.info("Number of slots in the collection "+taskResponseCollectInfo.size());
-		log.info("Task Id of the slot is "+taskId);
+		log.info("Number of items in the collection "+taskResponseCollectInfo.size());
+		log.info("Task Id of the item is "+taskId);
 		
 		for (LinkedHashMap<String, String> requestMap : requestFormProperties) {
 			String distance = null;
@@ -160,6 +107,54 @@ public class TransportQueryServiceImpl implements TransportQueryService {
 				null, null, name, null, null, null, null, null, null, null, null, null, null, null, null, null, null,
 				null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
 
+	}
+
+	
+	public ResponseEntity<DataResponse> getHistoricProcessInstance(){
+		return processInstancesApi.getProcessInstances(null, null, "illuid-work:4:11267", null, null, null, null, null, null, null, null, null, null, null);
+	}
+
+	@Override
+	public List<DefaultInfoRequest> getAllOpenBookings(String name, String nameLike, String description,
+			String priority, String minimumPriority, String maximumPriority, String assignee, String assigneeLike,
+			String owner, String ownerLike, String unassigned, String delegationState, String candidateUser,
+			String candidateGroup, String candidateGroups, String involvedUser, String taskDefinitionKey,
+			String taskDefinitionKeyLike, String processInstanceId, String processInstanceBusinessKey,
+			String processInstanceBusinessKeyLike, @Valid String processDefinitionId,
+			@Valid String processDefinitionKey, @Valid String processDefinitionKeyLike,
+			@Valid String processDefinitionName, @Valid String processDefinitionNameLike, @Valid String executionId,
+			@Valid String createdOn, @Valid String createdBefore, @Valid String createdAfter, @Valid String dueOn,
+			@Valid String dueBefore, @Valid String dueAfter, @Valid Boolean withoutDueDate,
+			@Valid Boolean excludeSubTasks, @Valid Boolean active, @Valid Boolean includeTaskLocalVariables,
+			@Valid Boolean includeProcessVariables, @Valid String tenantId, @Valid String tenantIdLike,
+			@Valid Boolean withoutTenantId, @Valid String candidateOrAssigned, @Valid String category) {
+		
+		ResponseEntity<DataResponse> response = tasksApi.getTasks(name, nameLike, description, priority,
+				minimumPriority, maximumPriority, assignee, assigneeLike, owner, ownerLike, unassigned, delegationState,
+				candidateUser, candidateGroup, candidateGroups, involvedUser, taskDefinitionKey, taskDefinitionKeyLike,
+				processInstanceId, processInstanceBusinessKey, processInstanceBusinessKeyLike, processDefinitionId,
+				processDefinitionKey, processDefinitionKeyLike, processDefinitionName, processDefinitionNameLike,
+				executionId, createdOn, createdBefore, createdAfter, dueOn, dueBefore, dueAfter, withoutDueDate,
+				excludeSubTasks, active, includeTaskLocalVariables, includeProcessVariables, tenantId, tenantIdLike,
+				withoutTenantId, candidateOrAssigned, category);
+		
+		//List<LinkedHashMap<String, String>> taskResponses = (List<LinkedHashMap<String, String>>) response.getBody()
+			//	.getData();
+		
+		List<LinkedHashMap<String, String>> taskResponses=(List<LinkedHashMap<String, String>>) getHistoricProcessInstance().getBody().getData();
+		List<DefaultInfoRequest> myBookings = new ArrayList<DefaultInfoRequest>();
+		log.info("/////////////////////"+taskResponses);
+		
+		for (LinkedHashMap<String, String> taskResponse : taskResponses) {
+			DefaultInfoRequest myBooking = new DefaultInfoRequest();
+			String taskProcessInstanceId = taskResponse.get("id");
+			log.info("***************************************************Process Instance id of open appointment is "+taskProcessInstanceId);
+			
+			myBooking = getBookingDetails(taskProcessInstanceId);
+			myBookings.add(myBooking);
+			
+		}
+		return myBookings;
 	}
 	
 	
