@@ -115,7 +115,7 @@ public class TransportQueryServiceImpl implements TransportQueryService {
 	}
 
 	@Override
-	public List<DefaultInfoRequest> getAllOpenBookings(String name, String nameLike, String description,
+	public List<OpenBookings> getAllOpenBookings(String name, String nameLike, String description,
 			String priority, String minimumPriority, String maximumPriority, String assignee, String assigneeLike,
 			String owner, String ownerLike, String unassigned, String delegationState, String candidateUser,
 			String candidateGroup, String candidateGroups, String involvedUser, String taskDefinitionKey,
@@ -142,15 +142,20 @@ public class TransportQueryServiceImpl implements TransportQueryService {
 			//	.getData();
 		
 		List<LinkedHashMap<String, String>> taskResponses=(List<LinkedHashMap<String, String>>) getHistoricProcessInstance().getBody().getData();
-		List<DefaultInfoRequest> myBookings = new ArrayList<DefaultInfoRequest>();
+		List<OpenBookings> myBookings = new ArrayList<OpenBookings>();
 		log.info("/////////////////////"+taskResponses);
 		
 		for (LinkedHashMap<String, String> taskResponse : taskResponses) {
-			DefaultInfoRequest myBooking = new DefaultInfoRequest();
+			OpenBookings myBooking = new OpenBookings();
 			String taskProcessInstanceId = taskResponse.get("id");
 			log.info("***************************************************Process Instance id of open appointment is "+taskProcessInstanceId);
 			
-			myBooking = getBookingDetails(taskProcessInstanceId);
+			DefaultInfoRequest df = new DefaultInfoRequest();
+			df=getBookingDetails(taskProcessInstanceId);
+			myBooking.setDistance(df.getDistance());
+			myBooking.setPickUp(df.getPickUp());
+			myBooking.setDestination(df.getDestination());
+			myBooking.setTrackingProcessinstanceId(taskProcessInstanceId);
 			myBookings.add(myBooking);
 			
 		}

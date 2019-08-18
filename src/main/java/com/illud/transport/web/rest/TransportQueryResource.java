@@ -94,7 +94,7 @@ public class TransportQueryResource {
 	}
 
 	@GetMapping("/myAppointments")
-	public List<DefaultInfoRequest> getAllOpenBookings(@RequestParam(value = "name", required = false) String name,
+	public List<OpenBookings> getAllOpenBookings(@RequestParam(value = "name", required = false) String name,
 			@RequestParam(value = "nameLike", required = false) String nameLike,
 			@RequestParam(value = "description", required = false) String description,
 			@RequestParam(value = "priority", required = false) String priority,
