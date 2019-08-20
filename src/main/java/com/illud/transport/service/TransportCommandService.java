@@ -1,7 +1,7 @@
 package com.illud.transport.service;
 
 import com.illud.transport.client.activiti_rest_api.model.transport.DefaultInfoRequest;
-import com.illud.transport.client.activiti_rest_api.model.transport.InitiateRide;
+import com.illud.transport.client.activiti_rest_api.model.transport.DriverInfo;
 import com.illud.transport.client.activiti_rest_api.model.transport.PaymentStatus;
 import com.illud.transport.client.activiti_rest_api.model.transport.RateAndReview;
 import com.illud.transport.client.activiti_rest_api.model.transport.RideStatus;
@@ -13,7 +13,7 @@ public interface TransportCommandService {
 	
 	void collectRiderLocationDetails(String taskId, DefaultInfoRequest defaultInfoRequest);
 	
-	void initiateRide(String taskId, InitiateRide initiateRide);
+	void chooseDriver(String taskId, DriverInfo initiateRide);
 
 	void startRide(String taskId, RideStatus startRide);
 

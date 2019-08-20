@@ -111,7 +111,7 @@ public class TransportQueryServiceImpl implements TransportQueryService {
 
 	
 	public ResponseEntity<DataResponse> getHistoricProcessInstance(){
-		return processInstancesApi.getProcessInstances(null, null, "illuid-work:4:11267", null, null, null, null, null, null, null, null, null, null, null);
+		return processInstancesApi.getProcessInstances(null, null, "illuid-work:5:13263", null, null, null, null, null, null, null, null, null, null, null);
 	}
 
 	@Override
@@ -141,24 +141,32 @@ public class TransportQueryServiceImpl implements TransportQueryService {
 		//List<LinkedHashMap<String, String>> taskResponses = (List<LinkedHashMap<String, String>>) response.getBody()
 			//	.getData();
 		
+		//List<DataResponse> taskResponses = (List<DataResponse>) getHistoricProcessInstance().getBody().getData();
+		
+		
+		
 		List<LinkedHashMap<String, String>> taskResponses=(List<LinkedHashMap<String, String>>) getHistoricProcessInstance().getBody().getData();
 		List<OpenBookings> myBookings = new ArrayList<OpenBookings>();
 		log.info("/////////////////////"+taskResponses);
 		
-		for (LinkedHashMap<String, String> taskResponse : taskResponses) {
-			OpenBookings myBooking = new OpenBookings();
-			String taskProcessInstanceId = taskResponse.get("id");
-			log.info("***************************************************Process Instance id of open appointment is "+taskProcessInstanceId);
-			
-			DefaultInfoRequest df = new DefaultInfoRequest();
-			df=getBookingDetails(taskProcessInstanceId);
-			myBooking.setDistance(df.getDistance());
-			myBooking.setPickUp(df.getPickUp());
-			myBooking.setDestination(df.getDestination());
-			myBooking.setTrackingProcessinstanceId(taskProcessInstanceId);
-			myBookings.add(myBooking);
-			
-		}
+		log.info("/////////////////////"+taskResponses.size());
+		
+		
+		  for (LinkedHashMap<String, String> taskResponse : taskResponses) {
+		  OpenBookings myBooking = new OpenBookings(); String taskProcessInstanceId =
+		  taskResponse.get("id"); log.
+		  info("***************************************************Process Instance id of open appointment is "
+		  +taskProcessInstanceId);
+		  
+		  DefaultInfoRequest df = new DefaultInfoRequest();
+		  df=getBookingDetails(taskProcessInstanceId);
+		  myBooking.setDistance(df.getDistance()); myBooking.setPickUp(df.getPickUp());
+		  myBooking.setDestination(df.getDestination());
+		  myBooking.setTrackingProcessinstanceId(taskProcessInstanceId);
+		  myBookings.add(myBooking);
+		  
+		  }
+		 
 		return myBookings;
 	}
 	

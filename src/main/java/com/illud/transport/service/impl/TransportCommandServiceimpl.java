@@ -17,7 +17,7 @@ import com.illud.transport.client.activiti_rest_api.model.RestFormProperty;
 import com.illud.transport.client.activiti_rest_api.model.RestVariable;
 import com.illud.transport.client.activiti_rest_api.model.SubmitFormRequest;
 import com.illud.transport.client.activiti_rest_api.model.transport.DefaultInfoRequest;
-import com.illud.transport.client.activiti_rest_api.model.transport.InitiateRide;
+import com.illud.transport.client.activiti_rest_api.model.transport.DriverInfo;
 import com.illud.transport.client.activiti_rest_api.model.transport.PaymentStatus;
 import com.illud.transport.client.activiti_rest_api.model.transport.RateAndReview;
 import com.illud.transport.client.activiti_rest_api.model.transport.RideStatus;
@@ -47,7 +47,8 @@ public class TransportCommandServiceimpl implements TransportCommandService {
    		
    		//processInstanceCreateRequest.setProcessDefinitionId("illuid-work:1:2504");
    		//processInstanceCreateRequest.setProcessDefinitionId("illuid-work:3:10814");
-   		processInstanceCreateRequest.setProcessDefinitionId("illuid-work:4:11267");
+   		//processInstanceCreateRequest.setProcessDefinitionId("illuid-work:4:11267");
+   		processInstanceCreateRequest.setProcessDefinitionId("illuid-work:5:13263");
    		
    		RestVariable riderRestVariable=new RestVariable();
    		riderRestVariable.setName("rider");
@@ -124,7 +125,7 @@ public class TransportCommandServiceimpl implements TransportCommandService {
 
 	
 	@Override
-	public void initiateRide(String taskId, InitiateRide initiateRide) {
+	public void chooseDriver(String taskId, DriverInfo driverInfo) {
 		
 		log .info("into ====================initiateRide()");
    		List<RestFormProperty>formProperties=new ArrayList<RestFormProperty>();
@@ -132,36 +133,29 @@ public class TransportCommandServiceimpl implements TransportCommandService {
    		submitFormRequest.setAction("completed");
    		submitFormRequest.setTaskId(taskId);
    		
-   		RestFormProperty distanceFormProperty = new RestFormProperty();
-   		distanceFormProperty.setId("distance");
-   		distanceFormProperty.setName("distance");
-   		distanceFormProperty.setType("String");
-   		distanceFormProperty.setReadable(true);
-   		distanceFormProperty.setValue(initiateRide.getDistance());
-   		formProperties.add(distanceFormProperty);
+   		RestFormProperty nameFormProperty = new RestFormProperty();
+   		nameFormProperty.setId("name");
+   		nameFormProperty.setName("name");
+   		nameFormProperty.setType("String");
+   		nameFormProperty.setReadable(true);
+   		nameFormProperty.setValue(driverInfo.getName());
+   		formProperties.add(nameFormProperty);
    		
-   		RestFormProperty pickUpFormProperty = new RestFormProperty();
-   		pickUpFormProperty.setId("pickup");
-   		pickUpFormProperty.setName("pickup");
-   		pickUpFormProperty.setType("String");
-   		pickUpFormProperty.setReadable(true);
-   		pickUpFormProperty.setValue(initiateRide.getPickUp());
-   		formProperties.add(pickUpFormProperty);
+   		RestFormProperty emailFormProperty = new RestFormProperty();
+   		emailFormProperty.setId("email");
+   		emailFormProperty.setName("email");
+   		emailFormProperty.setType("String");
+   		emailFormProperty.setReadable(true);
+   		emailFormProperty.setValue(driverInfo.getEmail());
+   		formProperties.add(emailFormProperty);
    		
-   		RestFormProperty destinationFormProperty = new RestFormProperty();
-   		destinationFormProperty.setId("destination");
-   		destinationFormProperty.setName("destination");
-   		destinationFormProperty.setType("String");
-   		destinationFormProperty.setReadable(true);
-   		destinationFormProperty.setValue(initiateRide.getDestination());
-   		formProperties.add(destinationFormProperty);
    		
    		RestFormProperty statusFormProperty = new RestFormProperty();
    		statusFormProperty.setId("status");
    		statusFormProperty.setName("destination");
    		statusFormProperty.setType("String");
    		statusFormProperty.setReadable(true);
-   		statusFormProperty.setValue(initiateRide.getStatus());
+   		statusFormProperty.setValue(driverInfo.getStatus());
    		formProperties.add(statusFormProperty);
    		
    		RestFormProperty trackingIdFormProperty = new RestFormProperty();
@@ -169,7 +163,7 @@ public class TransportCommandServiceimpl implements TransportCommandService {
    		trackingIdFormProperty.setName("destination");
    		trackingIdFormProperty.setType("String");
    		trackingIdFormProperty.setReadable(true);
-   		trackingIdFormProperty.setValue(initiateRide.getTrackingId());
+   		trackingIdFormProperty.setValue(driverInfo.getTrackingId());
    		formProperties.add(trackingIdFormProperty);
    		
    		submitFormRequest.setProperties(formProperties);

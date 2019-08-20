@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.illud.transport.client.activiti_rest_api.model.transport.DefaultInfoRequest;
-import com.illud.transport.client.activiti_rest_api.model.transport.InitiateRide;
+import com.illud.transport.client.activiti_rest_api.model.transport.DriverInfo;
 import com.illud.transport.client.activiti_rest_api.model.transport.PaymentStatus;
 import com.illud.transport.client.activiti_rest_api.model.transport.RateAndReview;
 import com.illud.transport.client.activiti_rest_api.model.transport.RideStatus;
@@ -41,10 +41,10 @@ public class TransportCommandResource {
 		transportCommandService.collectRiderLocationDetails(taskId,defaultInfoRequest);
 	}
 	
-	@PostMapping("/initiateRide/{taskId}")
-    public void initiateride(@PathVariable String taskId, @RequestBody InitiateRide initiateRide){
+	@PostMapping("/chooseDriver/{taskId}")
+    public void chooseDriver(@PathVariable String taskId, @RequestBody DriverInfo initiateRide){
     	
-		transportCommandService.initiateRide(taskId,initiateRide);
+		transportCommandService.chooseDriver(taskId,initiateRide);
     }
     
     @PostMapping("/startRide/{taskId}")
