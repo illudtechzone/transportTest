@@ -13,7 +13,7 @@ public interface TransportCommandService {
 	
 	void collectRiderLocationDetails(String taskId, DefaultInfoRequest defaultInfoRequest);
 	
-	void chooseDriver(String taskId, DriverInfo initiateRide);
+	void driverResponse(String taskId, DriverInfo driverInfo);
 
 	void startRide(String taskId, RideStatus startRide);
 

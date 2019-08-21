@@ -125,7 +125,7 @@ public class TransportCommandServiceimpl implements TransportCommandService {
 
 	
 	@Override
-	public void chooseDriver(String taskId, DriverInfo driverInfo) {
+	public void driverResponse(String taskId, DriverInfo driverInfo) {
 		
 		log .info("into ====================initiateRide()");
    		List<RestFormProperty>formProperties=new ArrayList<RestFormProperty>();

@@ -41,10 +41,10 @@ public class TransportCommandResource {
 		transportCommandService.collectRiderLocationDetails(taskId,defaultInfoRequest);
 	}
 	
-	@PostMapping("/chooseDriver/{taskId}")
-    public void chooseDriver(@PathVariable String taskId, @RequestBody DriverInfo initiateRide){
+	@PostMapping("/driverResponse/{taskId}")
+    public void driverResponse(@PathVariable String taskId, @RequestBody DriverInfo driverInfo){
     	
-		transportCommandService.chooseDriver(taskId,initiateRide);
+		transportCommandService.driverResponse(taskId,driverInfo);
     }
     
     @PostMapping("/startRide/{taskId}")
