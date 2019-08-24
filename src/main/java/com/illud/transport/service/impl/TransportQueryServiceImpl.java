@@ -13,7 +13,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-
+import org.springframework.web.bind.annotation.RequestParam;
 import com.illud.transport.client.activiti_rest_api.api.HistoryApi;
 import com.illud.transport.client.activiti_rest_api.api.ProcessInstancesApi;
 import com.illud.transport.client.activiti_rest_api.api.TasksApi;
@@ -52,7 +52,7 @@ public class TransportQueryServiceImpl implements TransportQueryService {
 			Boolean includeProcessVariables, String tenantId, String tenantIdLike, Boolean withoutTenantId,
 			String candidateOrAssigned, String category) {
 		
-		return tasksApi.getTasks(name, nameLike, description, priority, minimumPriority, maximumPriority, assignee, assigneeLike, owner, ownerLike, unassigned, delegationState, candidateUser, candidateGroup, candidateGroups, involvedUser, taskDefinitionKey, taskDefinitionKeyLike, processInstanceId, processInstanceBusinessKey, processInstanceBusinessKeyLike, processDefinitionId, processDefinitionKey, processDefinitionKeyLike, processDefinitionName, processDefinitionNameLike, executionId, createdOn, createdBefore, createdAfter, dueOn, dueBefore, dueAfter, withoutDueDate, excludeSubTasks, active, includeTaskLocalVariables, includeProcessVariables, tenantId, tenantIdLike, withoutTenantId, candidateOrAssigned, category);
+		return tasksApi.getTasks(name, nameLike, description, priority, minimumPriority, maximumPriority, assignee, assigneeLike, owner, ownerLike, unassigned, delegationState, candidateUser, candidateGroup, candidateGroups, involvedUser, taskDefinitionKey, taskDefinitionKeyLike, processInstanceId, processInstanceBusinessKey, processInstanceBusinessKeyLike, processDefinitionId, processDefinitionKey, processDefinitionKeyLike, processDefinitionName, processDefinitionNameLike, executionId, createdOn, createdBefore, createdAfter, dueOn, dueBefore, dueAfter, withoutDueDate, excludeSubTasks, active, includeTaskLocalVariables, includeProcessVariables, tenantId, tenantIdLike, withoutTenantId, candidateOrAssigned, category,/*pageable.getPageNumber()+""*/"0",null, "desc",/* pageable.getPageSize()+""*/"150");
 	}
 
 	
@@ -103,6 +103,7 @@ public class TransportQueryServiceImpl implements TransportQueryService {
 	
 	public ResponseEntity<DataResponse> getHistoricTaskusingProcessInstanceIdAndName(String processInstanceId,
 			String name) {
+
 		return historyApi.listHistoricTaskInstances(null, processInstanceId, null, null, null, null, null, null, null,
 				null, null, name, null, null, null, null, null, null, null, null, null, null, null, null, null, null,
 				null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
@@ -115,28 +116,18 @@ public class TransportQueryServiceImpl implements TransportQueryService {
 	}
 
 	@Override
-	public List<OpenBookings> getAllOpenBookings(String name, String nameLike, String description,
-			String priority, String minimumPriority, String maximumPriority, String assignee, String assigneeLike,
-			String owner, String ownerLike, String unassigned, String delegationState, String candidateUser,
-			String candidateGroup, String candidateGroups, String involvedUser, String taskDefinitionKey,
-			String taskDefinitionKeyLike, String processInstanceId, String processInstanceBusinessKey,
-			String processInstanceBusinessKeyLike, @Valid String processDefinitionId,
-			@Valid String processDefinitionKey, @Valid String processDefinitionKeyLike,
-			@Valid String processDefinitionName, @Valid String processDefinitionNameLike, @Valid String executionId,
-			@Valid String createdOn, @Valid String createdBefore, @Valid String createdAfter, @Valid String dueOn,
-			@Valid String dueBefore, @Valid String dueAfter, @Valid Boolean withoutDueDate,
-			@Valid Boolean excludeSubTasks, @Valid Boolean active, @Valid Boolean includeTaskLocalVariables,
-			@Valid Boolean includeProcessVariables, @Valid String tenantId, @Valid String tenantIdLike,
-			@Valid Boolean withoutTenantId, @Valid String candidateOrAssigned, @Valid String category) {
+	public List<OpenBookings> getAllOpenBookings(String name,  String assignee, String assigneeLike,
+			String processInstanceId,  @Valid String processDefinitionId,
+			@Valid String processDefinitionKey) {
 		
-		ResponseEntity<DataResponse> response = tasksApi.getTasks(name, nameLike, description, priority,
-				minimumPriority, maximumPriority, assignee, assigneeLike, owner, ownerLike, unassigned, delegationState,
-				candidateUser, candidateGroup, candidateGroups, involvedUser, taskDefinitionKey, taskDefinitionKeyLike,
-				processInstanceId, processInstanceBusinessKey, processInstanceBusinessKeyLike, processDefinitionId,
-				processDefinitionKey, processDefinitionKeyLike, processDefinitionName, processDefinitionNameLike,
-				executionId, createdOn, createdBefore, createdAfter, dueOn, dueBefore, dueAfter, withoutDueDate,
-				excludeSubTasks, active, includeTaskLocalVariables, includeProcessVariables, tenantId, tenantIdLike,
-				withoutTenantId, candidateOrAssigned, category);
+		ResponseEntity<DataResponse> response = tasksApi.getTasks(name, null, null, null,
+				null, null, assignee, assigneeLike, null, null, null, null,
+				null, null, null, null, null, null,
+				processInstanceId, null, null, "illuid-work:5:13263",
+				processDefinitionKey, null, null, null,
+				null, null, null, null, null, null, null, null,
+				null, null, null, null, null, null,
+				null, null, null, /*pageable.getPageNumber()+""*/"0",null, "desc",/* pageable.getPageSize()+""*/"150");
 		
 		//List<LinkedHashMap<String, String>> taskResponses = (List<LinkedHashMap<String, String>>) response.getBody()
 			//	.getData();
@@ -153,23 +144,83 @@ public class TransportQueryServiceImpl implements TransportQueryService {
 		
 		
 		  for (LinkedHashMap<String, String> taskResponse : taskResponses) {
-		  OpenBookings myBooking = new OpenBookings(); String taskProcessInstanceId =
-		  taskResponse.get("id"); log.
-		  info("***************************************************Process Instance id of open appointment is "
-		  +taskProcessInstanceId);
+		  OpenBookings myBooking = new OpenBookings(); 
+		  String taskProcessInstanceId =taskResponse.get("id"); 
+		  log.info("***************************************************Process Instance id of open appointment is "+taskProcessInstanceId);
 		  
 		  DefaultInfoRequest df = new DefaultInfoRequest();
 		  df=getBookingDetails(taskProcessInstanceId);
-		  myBooking.setDistance(df.getDistance()); myBooking.setPickUp(df.getPickUp());
+		  
+		  myBooking.setDistance(df.getDistance());
+		  myBooking.setPickUp(df.getPickUp());
 		  myBooking.setDestination(df.getDestination());
 		  myBooking.setTrackingProcessinstanceId(taskProcessInstanceId);
+		  
 		  myBookings.add(myBooking);
+		  		  
 		  
 		  }
 		 
 		return myBookings;
+		
+	}
+
+
+	@Override
+	public ResponseEntity<Void> deleteProcessInstance(String processInstanceId) {
+		log.info("***************************************************Process Instance id to delete  is  "+processInstanceId);
+		//log.info("***************************************************Process Instance id to delete  is  "+getAllPendingBookings(null, null, null, processInstanceId, null, null));
+		return processInstancesApi.deleteProcessInstance(processInstanceId, null);
 	}
 	
-	
+	@Override
+	public List<OpenBookings>getAllPendingBookings( String name,
+			 String nameLike,
+			 String assignee,
+			 String assigneeLike,
+			 String candidateUser,
+			 String candidateGroup,
+			 String candidateGroups,
+			 String processInstanceId,
+			 String processDefinitionId,
+			 String processDefinitionKey,
+			 String createdOn,
+			String createdBefore,
+			 String createdAfter/*Pageable pageable*/) {
+
+		
+		ResponseEntity<DataResponse> response = tasksApi.getTasks(name, nameLike, null, null, null, null, assignee,
+				assigneeLike, null, null, null, null, candidateUser, candidateGroup, candidateGroups, null, null, null,
+				processInstanceId, null, null, "illuid-work:5:13263", null, null, null, null, null, createdOn, createdBefore, createdAfter, null,
+				null, null, null, null, null, null, null, null, null, null, null, null, /*pageable.getPageNumber()+""*/"0",null, "desc",/* pageable.getPageSize()+""*/"1500");
+		List<LinkedHashMap<String, String>> myTasks = (List<LinkedHashMap<String, String>>) response.getBody()
+				.getData();
+		log.info("*****************************////////////////////////////////////**********"+myTasks.size());
+		List<OpenBookings> bookings = new ArrayList<OpenBookings>();
+		
+		myTasks.forEach(task -> {
+			OpenBookings openTask = new OpenBookings();
+			String taskProcessInstanceId = task.get("processInstanceId");
+			//log.info("***************************************************Process Instance id to delete  is  "+taskProcessInstanceId);
+			String taskName = task.get("name");
+			String taskId = task.get("id");
+			openTask.setPickUp(getBookingDetails(taskProcessInstanceId).getPickUp());
+			openTask.setDestination(getBookingDetails(taskProcessInstanceId).getDestination());
+			openTask.setDistance(getBookingDetails(taskProcessInstanceId).getDistance());
+			openTask.setTrackingProcessinstanceId(taskProcessInstanceId);
+			openTask.setTaskId(taskId);
+			openTask.setTaskName(taskName);
+			
+			
+		
+			bookings.add(openTask);
+			System.out.println(
+					"TaskName is " + taskName + " taskid is " + taskId + " processinstanceId " + taskProcessInstanceId);
+		});
+		
+		return bookings;
+	}
+
+
 	
 }
