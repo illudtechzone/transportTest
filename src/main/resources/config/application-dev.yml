@@ -66,17 +66,17 @@ spring:
             hibernate.generate_statistics: true
     data:
         elasticsearch:
-           cluster-name: bbdff13600dc45b98035eb7539c60ea7
-           cluster-nodes: https://bbdff13600dc45b98035eb7539c60ea7.us-central1.gcp.cloud.es.io:9243
+           cluster-name: f0c6e52b330f4255bcb3804fc17d0b93
+           cluster-nodes: https://f0c6e52b330f4255bcb3804fc17d0b93.asia-northeast1.gcp.cloud.es.io:9243/
            properties:
                path:
                    logs: target/elasticsearch/log
                    data: target/elasticsearch/data
         jest:
-           password: rUVOqxUxwxM9msHHCMPLqxLs
+           password: JeEMif0oRWB43OJ8lUgAMnaS
            username: elastic
            readTimeout: 10000
-           uri: https://bbdff13600dc45b98035eb7539c60ea7.us-central1.gcp.cloud.es.io:9243
+           uri: https://f0c6e52b330f4255bcb3804fc17d0b93.asia-northeast1.gcp.cloud.es.io:9243/
     liquibase:
         contexts: dev
     mail:
