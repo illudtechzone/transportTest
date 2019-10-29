@@ -145,10 +145,10 @@ public class DriverResource {
      */
     @PostMapping("/create/drivers")
     public ResponseEntity<DriverDTO> createDriverIfnotExist(@RequestBody DriverDTO driverDTO) throws URISyntaxException {
-        		log.debug("REST request to save Driver : {}", driverDTO);
+       	log.debug("REST request to save Driver : {}", driverDTO);
         
-        		Optional<DriverDTO> result = driverService.createDriverIfnotExist(driverDTO);
-        		return   ResponseUtil.wrapOrNotFound(result);
+       	Optional<DriverDTO> result = driverService.createDriverIfnotExist(driverDTO);
+       	return   ResponseUtil.wrapOrNotFound(result);
     }
     
 
