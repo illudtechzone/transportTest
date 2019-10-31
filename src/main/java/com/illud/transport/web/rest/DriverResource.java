@@ -54,6 +54,10 @@ public class DriverResource {
             throw new BadRequestAlertException("A new driver cannot already have an ID", ENTITY_NAME, "idexists");
         }
         DriverDTO result = driverService.save(driverDTO);
+        if (driverDTO.getId() == null) {
+            throw new BadRequestAlertException("Already have an ID", ENTITY_NAME, "idexists");
+        }
+        DriverDTO result1 = driverService.save(result);
         return ResponseEntity.created(new URI("/api/drivers/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
             .body(result);

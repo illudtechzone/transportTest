@@ -54,6 +54,10 @@ public class ReplyResource {
             throw new BadRequestAlertException("A new reply cannot already have an ID", ENTITY_NAME, "idexists");
         }
         ReplyDTO result = replyService.save(replyDTO);
+        if (replyDTO.getId() == null) {
+            throw new BadRequestAlertException("Already exist in ID", ENTITY_NAME, "idexists");
+        }
+        ReplyDTO result1 = replyService.save(result);
         return ResponseEntity.created(new URI("/api/replies/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
             .body(result);

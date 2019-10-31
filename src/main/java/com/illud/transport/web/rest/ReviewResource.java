@@ -54,6 +54,10 @@ public class ReviewResource {
             throw new BadRequestAlertException("A new review cannot already have an ID", ENTITY_NAME, "idexists");
         }
         ReviewDTO result = reviewService.save(reviewDTO);
+        if (reviewDTO.getId() == null) {
+            throw new BadRequestAlertException("already exist ID", ENTITY_NAME, "idexists");
+        } 
+        ReviewDTO result1 = reviewService.save(result);
         return ResponseEntity.created(new URI("/api/reviews/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
             .body(result);
